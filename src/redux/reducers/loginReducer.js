@@ -7,7 +7,7 @@ const loginReducer = (state = INITIAL_STATE, action) => {
   case USER_LOGIN:
     return { ...state, ...action.payload };
   default:
-    break;
+    return state;
   }
 };
 
