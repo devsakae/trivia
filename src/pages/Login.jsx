@@ -33,8 +33,7 @@ class Login extends Component {
     dispatch(userLogin(this.state));
     fetch('https://opentdb.com/api_token.php?command=request')
       .then((response) => response.json())
-      .then((obj) => this.inicializaJogo(obj.token))
-      .catch((err) => { throw newError(err); });
+      .then((obj) => this.inicializaJogo(obj.token));
   };
 
   render() {
