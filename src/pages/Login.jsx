@@ -18,6 +18,19 @@ export default class Login extends Component {
     });
   };
 
+  fetchTrivia = async () => {
+    const response = await fetch('https://opentdb.com/api_token.php?command=request');
+    const token = response.token;
+    console.log(token);
+    // https://opentdb.com/api.php?amount=5&token=TOKEN 
+  } 
+
+  handleClick = () => {
+    this.fetchTrivia();
+  }
+
+
+
   render() {
     const { name, email, disabledButton } = this.state;
     return (
@@ -46,6 +59,7 @@ export default class Login extends Component {
             type="button"
             data-testid="btn-play"
             disabled={ disabledButton }
+            onClick={ this.handleClick }
           >
             Play
           </button>
