@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userLogin } from '../redux/actions';
 import { Link } from 'react-router-dom';
+import { userLogin } from '../redux/actions';
 
-export class Login extends Component {
+class Login extends Component {
   state = {
     nome: '',
     email: '',
