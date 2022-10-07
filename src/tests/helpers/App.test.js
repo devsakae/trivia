@@ -32,5 +32,6 @@ describe('Testes do App', () => {
   test('Teste de rotas', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     expect(history.location.pathname).toBe('/')
+    const teste = 'teste'
   });
 })
