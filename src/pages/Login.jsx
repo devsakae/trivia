@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userLogin } from '../redux/actions';
+import { Link } from 'react-router-dom';
 
 export class Login extends Component {
   state = {
@@ -68,6 +69,14 @@ export class Login extends Component {
           >
             Play
           </button>
+          <Link to="/settings">
+            <button
+              type="button"
+              data-testid="btn-settings"
+            >
+              Settings
+            </button>
+          </Link>
         </form>
       </div>
     );
