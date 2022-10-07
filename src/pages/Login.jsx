@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { userLogin } from '../redux/actions';
 import { Link } from 'react-router-dom';
 
-export default class Login extends Component {
+export class Login extends Component {
   state = {
     nome: '',
     email: '',
@@ -19,18 +22,20 @@ export default class Login extends Component {
     });
   };
 
-  fetchTrivia = async () => {
-    const response = await fetch('https://opentdb.com/api_token.php?command=request');
-    const token = response.token;
-    console.log(token);
-    // https://opentdb.com/api.php?amount=5&token=TOKEN 
-  } 
+  inicializaJogo = (token) => {
+    const { history } = this.props;
+    localStorage.setItem('token', token);
+    history.push('/game');
+  };
 
-  handleClick = () => {
-    this.fetchTrivia();
-  }
-
-
+  handleClick = async () => {
+    const { dispatch } = this.props;
+    dispatch(userLogin(this.state));
+    fetch('https://opentdb.com/api_token.php?command=request')
+      .then((response) => response.json())
+      .then((obj) => this.inicializaJogo(obj.token))
+      .catch((err) => { throw newError(err); });
+  };
 
   render() {
     const { name, email, disabledButton } = this.state;
@@ -77,3 +82,9 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({}),
+}.isRequired;
+
+export default connect()(Login);
