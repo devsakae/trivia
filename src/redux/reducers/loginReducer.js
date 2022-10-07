@@ -1,9 +1,6 @@
 import { USER_LOGIN } from '../actions';
 
-const INITIAL_STATE = {
-  email: '',
-  name: '',
-};
+const INITIAL_STATE = { email: '', name: '' };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
