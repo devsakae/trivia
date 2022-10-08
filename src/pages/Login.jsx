@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { userLogin } from '../redux/actions';
+
+import { getToken } from '../services/fetchAPI';
 
 class Login extends Component {
   state = {
@@ -22,18 +23,11 @@ class Login extends Component {
     });
   };
 
-  inicializaJogo = (token) => {
-    const { history } = this.props;
-    localStorage.setItem('token', token);
-    history.push('/game');
-  };
-
   handleClick = async () => {
-    const { dispatch } = this.props;
-    dispatch(userLogin(this.state));
-    fetch('https://opentdb.com/api_token.php?command=request')
-      .then((response) => response.json())
-      .then((obj) => this.inicializaJogo(obj.token));
+    const { dispatch, history } = this.props;
+    const { nome, email } = this.state;
+    const payload = { nome, email };
+    getToken(history, dispatch, payload);
   };
 
   render() {
