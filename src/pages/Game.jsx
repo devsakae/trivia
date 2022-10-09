@@ -32,20 +32,17 @@ class Game extends Component {
   // Essa função apenas retorna a classe de acordo com a resposta (antes do clique e depois do clique)
   answerClass = (param) => {
     const { answerClick } = this.state;
-    if (answerClick) {
-      if (param) return 'wrong';
-      return 'right';
-    }
+    if (answerClick && param) return 'wrong';
+    if (answerClick) return 'right';
     return 'neither';
   };
 
   // Já esta função é o coração da resposta
   verificaAnswer = ({ target: { attributes } }) => {
-    console.log(attributes[1].value);
     if (attributes[1].value === 'correct-answer') {
-      console.log('Resposta correta!');
+      this.setState({ answerClick: true });
     } else {
-      console.log('Errrrrrrouuuu');
+      this.setState({ answerClick: 'not' });
     }
   };
 
