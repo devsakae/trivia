@@ -68,10 +68,14 @@ body {
   flex-direction: column;
 }
 
+button {
+  max-width: 60vw;
+}
+
 .neither {
+  background-color: white;
   border: 1px black solid;
   margin: 10px;
-  max-width: 60vw;
   padding: 5px;
 }
 
@@ -79,14 +83,12 @@ body {
   background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
   margin: 10px;
-  max-width: 60vw;
-  padding: 5px;
+  padding: 3px;
 }
 
 .wrong {
   background-color: red;
   border: 3px solid red;
   margin: 10px;
-  max-width: 60vw;
-  padding: 5px;
+  padding: 3px;
 }
