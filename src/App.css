@@ -63,7 +63,6 @@ body {
 }
 
 /* CSS básico para o requisito 7 */
-
 .container-col {
   display: flex;
   flex-direction: column;
@@ -77,16 +76,16 @@ body {
 }
 
 .right {
-  border: 3px solid rgb(6, 240, 15);
   background-color: rgb(6, 240, 15);
+  border: 3px solid rgb(6, 240, 15);
   margin: 10px;
   max-width: 60vw;
   padding: 5px;
 }
 
 .wrong {
-  border: 3px solid red;
   background-color: red;
+  border: 3px solid red;
   margin: 10px;
   max-width: 60vw;
   padding: 5px;
