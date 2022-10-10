@@ -61,3 +61,32 @@ body {
     transform: translate3d(4px, 0, 0);
   }
 }
+
+/* CSS básico para o requisito 7 */
+.container-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.neither {
+  border: 1px black solid;
+  margin: 10px;
+  max-width: 60vw;
+  padding: 5px;
+}
+
+.right {
+  background-color: rgb(6, 240, 15);
+  border: 3px solid rgb(6, 240, 15);
+  margin: 10px;
+  max-width: 60vw;
+  padding: 5px;
+}
+
+.wrong {
+  background-color: red;
+  border: 3px solid red;
+  margin: 10px;
+  max-width: 60vw;
+  padding: 5px;
+}

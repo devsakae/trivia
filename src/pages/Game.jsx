@@ -8,6 +8,7 @@ class Game extends Component {
   state = {
     data: [],
     indexQuestion: 0,
+    answerClick: false,
   };
 
   async componentDidMount() {
@@ -28,16 +29,45 @@ class Game extends Component {
     return newArray;
   };
 
+  // Essa função apenas retorna a classe de acordo com a resposta (antes do clique e depois do clique)
+  answerClass = (param) => {
+    const { answerClick } = this.state;
+    if (answerClick && param) return 'wrong';
+    if (answerClick) return 'right';
+    return 'neither';
+  };
+
+  // Já esta função é o coração da resposta
+  verificaAnswer = ({ target: { attributes } }) => {
+    if (attributes[1].value === 'correct-answer') {
+      this.setState({ answerClick: true });
+    } else {
+      this.setState({ answerClick: 'not' });
+    }
+  };
+
   getAnswers = (data) => {
     const unshuffle = [...data.incorrect_answers, data.correct_answer];
     const shuffle = this.shuffle(unshuffle);
     return shuffle.map((item, index) => (
       item === data.correct_answer ? (
-        <button key={ item } type="button" data-testid="correct-answer">
-          {item}
+        <button
+          type="button"
+          key={ item }
+          data-testid="correct-answer"
+          className={ this.answerClass() }
+          onClick={ (e) => this.verificaAnswer(e) }
+        >
+          { item }
         </button>
       ) : (
-        <button type="button" key={ item } data-testid={ `wrong-answer-${index}` }>
+        <button
+          type="button"
+          key={ item }
+          data-testid={ `wrong-answer-${index}` }
+          className={ this.answerClass('not') }
+          onClick={ (e) => this.verificaAnswer(e) }
+        >
           {item}
         </button>
       )
@@ -56,6 +86,7 @@ class Game extends Component {
         {data[indexQuestion] && (
           <div
             data-testid="answer-options"
+            className="container-col"
           >
             {this.getAnswers(data[indexQuestion])}
           </div>
