@@ -26,7 +26,9 @@ class Login extends Component {
   handleClick = async () => {
     const { dispatch, history } = this.props;
     const { nome, email } = this.state;
-    const payload = { nome, email };
+    const assertions = 0;
+    const score = 0;
+    const payload = { nome, email, assertions, score };
     getToken(history, dispatch, payload);
   };
 

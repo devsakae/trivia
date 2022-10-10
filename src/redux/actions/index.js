@@ -1,15 +1,7 @@
 export const USER_LOGIN = 'USER_LOGIN';
-// export const SET_SCORE = 'SET_SCORE';
 
 export const userLogin = (payload) => ({ type: USER_LOGIN, payload });
 
-// export const setScore = (score) => ({
-//   type: SET_SCORE,
-//   score,
-// });
+export const ADD_SCORE = 'ADD_SCORE';
 
-const const SEND_DATA = 'SEND_DATA';
-
-export 
-
-
+export const addScore = (payload) => ({ type: ADD_SCORE, payload });

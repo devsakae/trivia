@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchAPI } from '../services/fetchAPI';
+import { addScore } from '../redux/actions';
 
 const UM_SEGUNDO = 1000;
 const TRINTA_SEGUNDOS = 30000;
@@ -16,8 +17,7 @@ class Trivia extends Component {
   };
 
   async componentDidMount() {
-    const { history } = this.props;
-    const token = localStorage.getItem('token');
+    const { history, token } = this.props;
     const { indexQuestion } = this.state;
     const data = await fetchAPI(token, history);
     this.setState({ data });
@@ -40,11 +40,13 @@ class Trivia extends Component {
         this.verificaAnswer();
       } else {
         clearInterval(this.myInterval);
+        this.setState({ answerClick: true });
       }
     }, TRINTA_SEGUNDOS);
   };
 
   shuffle = (data, index) => {
+    if (data.length === 0) return [];
     const unshuffle = [...data[index].incorrect_answers,
       data[index].correct_answer];
     const newArray = [...unshuffle];
@@ -54,14 +56,28 @@ class Trivia extends Component {
         newArray[currentIndex]];
     }
     this.setState({ array: newArray });
-    console.log(data[index]);
-    console.log(newArray);
   };
 
-  verificaAnswer = () => {
+  verificaAnswer = (param) => {
     this.setState({ answerClick: true });
     clearTimeout(this.myTimeout);
     clearInterval(this.myInterval);
+    const { data, indexQuestion, segundos } = this.state;
+    const { player, dispatch } = this.props;
+    const dificuldade = data[indexQuestion].difficulty;
+    const { assertions, score } = player;
+    const atualScore = score;
+    const MAX_POINTS = 3;
+    const POINTS = 10;
+    let points;
+    if (dificuldade === 'easy') points = 1;
+    if (dificuldade === 'medium') points = 2;
+    if (dificuldade === 'hard') points = MAX_POINTS;
+    if (segundos > 0 && param === true) {
+      const sum = POINTS + (segundos * points) + atualScore;
+      const totalAssertions = assertions + 1;
+      dispatch(addScore({ score: sum, assertions: totalAssertions }));
+    }
   };
 
   nextQuestion = () => {
@@ -79,13 +95,13 @@ class Trivia extends Component {
   getAnswers = () => {
     const { array, data, indexQuestion, answerClick } = this.state;
     return array.map((item, index) => (
-      item === data[indexQuestion].correct_answer ? (
+      item === data[indexQuestion]?.correct_answer ? (
         <button
           type="button"
           key={ item }
           data-testid="correct-answer"
           className={ answerClick ? 'right' : 'neither' }
-          onClick={ () => this.verificaAnswer() }
+          onClick={ () => this.verificaAnswer(true) }
           disabled={ answerClick }
         >
           { item }
@@ -97,7 +113,7 @@ class Trivia extends Component {
           data-testid={ `wrong-answer-${index}` }
           // Refatorado para um simples ternário
           className={ answerClick ? 'wrong' : 'neither' }
-          onClick={ () => this.verificaAnswer() }
+          onClick={ () => this.verificaAnswer(false) }
           disabled={ answerClick }
         >
           {item}
@@ -114,7 +130,7 @@ class Trivia extends Component {
           {`Categoria: ${data[indexQuestion]?.category}`}
         </h4>
         <h3 data-testid="question-text">{data[indexQuestion]?.question}</h3>
-        {this.getAnswers()}
+        <div data-testid="answer-options">{this.getAnswers()}</div>
         { answerClick ? (
           <button
             type="button"
@@ -133,12 +149,18 @@ class Trivia extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  token: state.login.token,
+  token: state.player.token,
+  player: state.player,
 });
 
 Trivia.propTypes = {
   history: PropTypes.shape({}).isRequired,
   token: PropTypes.string.isRequired,
+  player: PropTypes.shape({
+    assertions: PropTypes.number,
+    score: PropTypes.number,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Trivia);
