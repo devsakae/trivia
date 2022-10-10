@@ -4,18 +4,39 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { fetchAPI } from '../services/fetchAPI';
 
+const UM_SEGUNDO = 1000;
+const TRINTA_SEGUNDOS = 30000;
+
 class Game extends Component {
   state = {
     data: [],
     indexQuestion: 0,
     answerClick: false,
+    segundos: 30,
   };
 
   async componentDidMount() {
     const { history, token } = this.props;
     const data = await fetchAPI(token, history);
     this.setState({ data });
+    this.startTimer();
   }
+
+  componentWillUnmount() {
+    clearInterval(this.myInterval);
+  }
+
+  startTimer = () => {
+    this.setState({ segundos: 30 });
+    this.myInterval = setInterval(() => {
+      this.setState((prevState) => ({ segundos: prevState.segundos - 1 }));
+    }, UM_SEGUNDO);
+    setTimeout(() => {
+      clearInterval(this.myInterval);
+      // Poderia ser um simples setState para o answerClick, mas a função deve ser usada também para a pontuação mais pra frente
+      this.verificaAnswer();
+    }, TRINTA_SEGUNDOS);
+  };
 
   //  foi usado como referencia um codigo do stackoverflow https://stackoverflow.com/a/12646864
 
@@ -32,6 +53,7 @@ class Game extends Component {
   // Refatorado para apenas ativar o answerClick
   verificaAnswer = () => {
     this.setState({ answerClick: true });
+    clearInterval(this.myInterval);
   };
 
   nextQuestion = () => {
@@ -39,6 +61,7 @@ class Game extends Component {
       answerClick: false,
       indexQuestion: prevState.indexQuestion + 1,
     }));
+    this.startTimer();
   };
 
   getAnswers = (data) => {
@@ -55,6 +78,7 @@ class Game extends Component {
           data-testid="correct-answer"
           className={ answerClick ? 'right' : 'neither' }
           onClick={ () => this.verificaAnswer() }
+          disabled={ answerClick }
         >
           { item }
         </button>
@@ -66,6 +90,7 @@ class Game extends Component {
           // Refatorado para um simples ternário
           className={ answerClick ? 'wrong' : 'neither' }
           onClick={ () => this.verificaAnswer() }
+          disabled={ answerClick }
         >
           {item}
         </button>
@@ -74,7 +99,7 @@ class Game extends Component {
   };
 
   render() {
-    const { data, indexQuestion, answerClick } = this.state;
+    const { data, indexQuestion, answerClick, segundos } = this.state;
     return (
       <>
         <Header />
@@ -88,7 +113,7 @@ class Game extends Component {
             className="container-col"
           >
             { this.getAnswers(data[indexQuestion]) }
-            { answerClick && (
+            { answerClick ? (
               <button
                 type="button"
                 data-testid="btn-next"
@@ -96,7 +121,10 @@ class Game extends Component {
               >
                 Next
               </button>
-            ) }
+            )
+              : (
+                <div>{ segundos }</div>
+              ) }
           </div>
         )}
       </>
