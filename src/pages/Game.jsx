@@ -29,34 +29,32 @@ class Game extends Component {
     return newArray;
   };
 
-  // Essa função apenas retorna a classe de acordo com a resposta (antes do clique e depois do clique)
-  answerClass = (param) => {
-    const { answerClick } = this.state;
-    if (answerClick && param) return 'wrong';
-    if (answerClick) return 'right';
-    return 'neither';
+  // Refatorado para apenas ativar o answerClick
+  verificaAnswer = () => {
+    this.setState({ answerClick: true });
   };
 
-  // Já esta função é o coração da resposta
-  verificaAnswer = ({ target: { attributes } }) => {
-    if (attributes[1].value === 'correct-answer') {
-      this.setState({ answerClick: true });
-    } else {
-      this.setState({ answerClick: 'not' });
-    }
+  nextQuestion = () => {
+    this.setState((prevState) => ({
+      answerClick: false,
+      indexQuestion: prevState.indexQuestion + 1,
+    }));
   };
 
   getAnswers = (data) => {
     const unshuffle = [...data.incorrect_answers, data.correct_answer];
+    const { answerClick } = this.state;
     const shuffle = this.shuffle(unshuffle);
+
+    // O shuffle está embaralhando após o onClick do button
     return shuffle.map((item, index) => (
       item === data.correct_answer ? (
         <button
           type="button"
           key={ item }
           data-testid="correct-answer"
-          className={ this.answerClass() }
-          onClick={ (e) => this.verificaAnswer(e) }
+          className={ answerClick ? 'right' : 'neither' }
+          onClick={ () => this.verificaAnswer() }
         >
           { item }
         </button>
@@ -65,8 +63,9 @@ class Game extends Component {
           type="button"
           key={ item }
           data-testid={ `wrong-answer-${index}` }
-          className={ this.answerClass('not') }
-          onClick={ (e) => this.verificaAnswer(e) }
+          // Refatorado para um simples ternário
+          className={ answerClick ? 'wrong' : 'neither' }
+          onClick={ () => this.verificaAnswer() }
         >
           {item}
         </button>
@@ -75,7 +74,7 @@ class Game extends Component {
   };
 
   render() {
-    const { data, indexQuestion } = this.state;
+    const { data, indexQuestion, answerClick } = this.state;
     return (
       <>
         <Header />
@@ -88,7 +87,16 @@ class Game extends Component {
             data-testid="answer-options"
             className="container-col"
           >
-            {this.getAnswers(data[indexQuestion])}
+            { this.getAnswers(data[indexQuestion]) }
+            { answerClick && (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.nextQuestion }
+              >
+                Next
+              </button>
+            ) }
           </div>
         )}
       </>
