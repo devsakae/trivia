@@ -90,6 +90,7 @@ class Trivia extends Component {
       this.setState({
         redirect: true,
       });
+      return;
     }
     this.setState({
       answerClick: false,
@@ -135,25 +136,28 @@ class Trivia extends Component {
     return (
       <>
         { redirect && <Redirect to="/feedback" /> }
-        <div>
-          <h4 data-testid="question-category">
-            {`Categoria: ${data[indexQuestion]?.category}`}
-          </h4>
-          <h3 data-testid="question-text">{data[indexQuestion]?.question}</h3>
-          <div data-testid="answer-options">{this.getAnswers()}</div>
-          { answerClick ? (
-            <button
-              type="button"
-              data-testid="btn-next"
-              onClick={ this.nextQuestion }
-            >
-              Next
-            </button>
-          )
-            : (
-              <div>{ segundos }</div>
-            ) }
-        </div>
+        { redirect
+        || (
+          <div>
+            <h4 data-testid="question-category">
+              {`Categoria: ${data[indexQuestion]?.category}`}
+            </h4>
+            <h3 data-testid="question-text">{data[indexQuestion]?.question}</h3>
+            <div data-testid="answer-options">{this.getAnswers()}</div>
+            { answerClick ? (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.nextQuestion }
+              >
+                Next
+              </button>
+            )
+              : (
+                <div>{ segundos }</div>
+              ) }
+          </div>
+        ) }
       </>
     );
   }
