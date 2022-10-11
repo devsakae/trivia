@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { MD5 } from 'crypto-js';
 
 class Ranking extends Component {
-//   rankingOrdenado() {
-//     const pontuacao = JSON.parse(localStorage.setItem('pontuacao'));
-//     pontuacao.sort((a, b) => Number(b.score) - Number(a.score));
-//   }
+  state = {
+    ranking: [],
+  };
+
+  componentDidMount() {
+    const rankingAtual = JSON.parse(localStorage.getItem('ranking')) || [];
+    this.setState({ ranking: rankingAtual });
+  }
 
   render() {
+    const { ranking } = this.state;
     return (
       <section>
         <h1
@@ -15,15 +21,19 @@ class Ranking extends Component {
         >
           Tela de ranking
         </h1>
-        {/* {
-          pontuacao.map((item, index) => (
+        {
+          ranking.map((item, index) => (
             <div key={ index }>
-              <img src={ item.picture } alt={ item.name } />
-              <h4 data-testid={ `player-name-${index}` }>{ item.name }</h4>
+              <h1>{ index + 1 }</h1>
+              <img
+                src={ `https://www.gravatar.com/avatar/${MD5(item.email).toString()}` }
+                alt="profile"
+              />
+              <h4 data-testid={ `player-name-${index}` }>{ item.nome }</h4>
               <h4 data-testid={ `player-score-${index}` }>{ item.score }</h4>
             </div>
           ))
-        } */}
+        }
         <Link to="/">
           <button
             data-testid="btn-go-home"
