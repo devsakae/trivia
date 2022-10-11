@@ -17,13 +17,15 @@ class Feedback extends Component {
   };
 
   render() {
-    const { /* score, */ assertions } = this.props;
+    const { score, assertions } = this.props;
     const feedback = this.validateScore(assertions);
 
     return (
       <div>
         <Header />
-        <h1 data-testid="feedback-text">{feedback}</h1>
+        <h1 data-testid="feedback-text">{ feedback }</h1>
+        <p data-testid="feedback-total-score">{ score }</p>
+        <p data-testid="feedback-total-question">{ assertions }</p>
         <Link to="/">
           <button
             type="button"
@@ -43,7 +45,7 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
-//   score: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
 };
 
