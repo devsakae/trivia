@@ -35,8 +35,8 @@ class Login extends Component {
   render() {
     const { name, email, disabledButton } = this.state;
     return (
-      <div>
-        <h2>Bem vindo ao jogo de Trivia.</h2>
+      <section className="login-box">
+        <h2>Trivia MG25</h2>
         <form>
           <label htmlFor="name">
             <input
@@ -73,7 +73,7 @@ class Login extends Component {
             </button>
           </Link>
         </form>
-      </div>
+      </section>
     );
   }
 }

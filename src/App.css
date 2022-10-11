@@ -1,75 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan&display=swap') ;
+
 body {
   box-sizing: border-box;
+  color: #0a0908;
+  font-family: League Spartan , sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 15vmin;
-  pointer-events: none;
-}
-
-.red-border {
-  border: 1px solid red;
-}
-
-.green-border {
-  border: 1px solid green;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes shake {
-
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
-
-/* CSS básico para o requisito 7 */
 .container-col {
   display: flex;
   flex-direction: column;
-}
-
-button {
-  max-width: 60vw;
 }
 
 .neither {
@@ -80,14 +21,13 @@ button {
 }
 
 .right {
-  background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
+  font-weight: 900;
   margin: 10px;
   padding: 3px;
 }
 
 .wrong {
-  background-color: red;
   border: 3px solid red;
   margin: 10px;
   padding: 3px;
@@ -95,9 +35,90 @@ button {
 
 header {
   align-items: center;
-  border-bottom: 1px black solid;
+  background-color: #49111c;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 5px 10px;
+  color: #f2f4f3;
   display: flex;
   justify-content: space-between;
   padding: 15px;
   text-align: center;
+}
+
+.login-box {
+  align-items: center;
+  background-color: #49111c;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 5px 10px;
+  color: #f2f4f3;
+  justify-content: center;
+  margin: 25vh auto;
+  max-width: 40vw;
+  padding: 20px;
+  text-align: center;
+}
+
+.login-box form {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+}
+
+.login-box input {
+  height: 20px;
+  width: 20vw;
+}
+
+.login-box button {
+  width: 20vw;
+}
+
+.triviaGame {
+  display: flex;
+  flex-direction: column;
+}
+
+.trivia {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.trivia button {
+  font-size: medium;
+  height: 50px;
+  min-width: 60vw;
+}
+
+.trivia button:hover {
+  background-color: yellow;
+  border: 1px blue solid;
+}
+
+.trivia button:disabled {
+  color: #0a0908;
+}
+
+.triviaHeader {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.triviaHeader h1 {
+  font-size: x-large;
+}
+
+.nextQuestion {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.nextBtn {
+  height: 30px;
+  width: 40vw;
+}
+
+.contagem {
+  font-size: x-large;
 }

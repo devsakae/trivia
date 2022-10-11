@@ -1,14 +1,14 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
-import Login from '../../pages/Login';
-import App from '../../App';
+import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
+import Login from '../pages/Login';
+import App from '../App';
 
 const loginMock = { email: 'teste@hotmail.com', name: 'Testando' };
 
 describe('Testes de login', () => {
-  test('Verifica se os campos de login e nome são renderizados e é possivel digitar neles', () => {
+  test('Verifica os campos de login nome são renderizados e é possivel digitar', () => {
     renderWithRouterAndRedux(<Login />);
 
     const inputName = screen.getByPlaceholderText(/digite seu nome/i);

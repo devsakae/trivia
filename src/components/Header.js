@@ -23,15 +23,12 @@ class Header extends Component {
         <div>
           <p>Sua pontuação:</p>
           <p data-testid="header-score">{ score }</p>
-        </div>
-        <div>
           <Link to="/ranking">
             <button
               type="button"
               data-testid="btn-ranking"
             >
               Ranking
-
             </button>
           </Link>
         </div>

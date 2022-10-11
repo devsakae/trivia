@@ -138,25 +138,30 @@ class Trivia extends Component {
         { redirect && <Redirect to="/feedback" /> }
         { redirect
         || (
-          <div>
-            <h4 data-testid="question-category">
-              {`Categoria: ${data[indexQuestion]?.category}`}
-            </h4>
-            <h3 data-testid="question-text">{data[indexQuestion]?.question}</h3>
-            <div data-testid="answer-options">{this.getAnswers()}</div>
+          <section className="triviaGame">
+            <div className="triviaHeader">
+              <h1 data-testid="question-text">{data[indexQuestion]?.question}</h1>
+              <p data-testid="question-category">
+                {`Categoria: ${data[indexQuestion]?.category}`}
+              </p>
+            </div>
+            <div data-testid="answer-options" className="trivia">{this.getAnswers()}</div>
             { answerClick ? (
-              <button
-                type="button"
-                data-testid="btn-next"
-                onClick={ this.nextQuestion }
-              >
-                Next
-              </button>
+              <div className="nextQuestion">
+                <button
+                  type="button"
+                  data-testid="btn-next"
+                  onClick={ this.nextQuestion }
+                  className="nextBtn"
+                >
+                  Next
+                </button>
+              </div>
             )
               : (
-                <div>{ segundos }</div>
+                <div className="nextQuestion contagem">{ segundos }</div>
               ) }
-          </div>
+          </section>
         ) }
       </>
     );
