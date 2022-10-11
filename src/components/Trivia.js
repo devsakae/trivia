@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchAPI } from '../services/fetchAPI';
 import { addScore } from '../redux/actions';
 
 const UM_SEGUNDO = 1000;
 const TRINTA_SEGUNDOS = 30000;
+const CINCO = 5;
 
 class Trivia extends Component {
   state = {
@@ -14,6 +16,7 @@ class Trivia extends Component {
     indexQuestion: 0,
     answerClick: false,
     segundos: 30,
+    redirect: false,
   };
 
   async componentDidMount() {
@@ -83,6 +86,12 @@ class Trivia extends Component {
   nextQuestion = () => {
     const { indexQuestion } = this.state;
     const sum = indexQuestion + 1;
+    if (sum === CINCO) {
+      this.setState({
+        redirect: true,
+      });
+      return;
+    }
     this.setState({
       answerClick: false,
       indexQuestion: sum,
@@ -123,27 +132,33 @@ class Trivia extends Component {
   };
 
   render() {
-    const { data, indexQuestion, segundos, answerClick } = this.state;
+    const { data, indexQuestion, segundos, answerClick, redirect } = this.state;
     return (
-      <div>
-        <h4 data-testid="question-category">
-          {`Categoria: ${data[indexQuestion]?.category}`}
-        </h4>
-        <h3 data-testid="question-text">{data[indexQuestion]?.question}</h3>
-        <div data-testid="answer-options">{this.getAnswers()}</div>
-        { answerClick ? (
-          <button
-            type="button"
-            data-testid="btn-next"
-            onClick={ this.nextQuestion }
-          >
-            Next
-          </button>
-        )
-          : (
-            <div>{ segundos }</div>
-          ) }
-      </div>
+      <>
+        { redirect && <Redirect to="/feedback" /> }
+        { redirect
+        || (
+          <div>
+            <h4 data-testid="question-category">
+              {`Categoria: ${data[indexQuestion]?.category}`}
+            </h4>
+            <h3 data-testid="question-text">{data[indexQuestion]?.question}</h3>
+            <div data-testid="answer-options">{this.getAnswers()}</div>
+            { answerClick ? (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.nextQuestion }
+              >
+                Next
+              </button>
+            )
+              : (
+                <div>{ segundos }</div>
+              ) }
+          </div>
+        ) }
+      </>
     );
   }
 }
