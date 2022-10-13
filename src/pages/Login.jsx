@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getToken } from '../services/fetchAPI';
 
+const imagemBackground = require('../images/trybe-negativo-preferencial.png');
+
 class Login extends Component {
   state = {
     nome: '',
@@ -37,7 +39,7 @@ class Login extends Component {
       <section className="container-login">
         <div className="login-menu">
           <img
-            src={ require("../images/trybe-negativo-preferencial.png") }
+            src={ imagemBackground }
             alt="Trybe Logo here"
             className="trybelogo"
           />

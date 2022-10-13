@@ -6,17 +6,12 @@ import Header from '../components/Header';
 
 class Feedback extends Component {
   componentDidMount() {
-    const { score } = this.props;
-    if (score > 0) this.gravaRanking();
-  }
-
-  gravaRanking = () => {
     const rankingAtual = JSON.parse(localStorage.getItem('ranking')) || [];
     const { nome, email, score } = this.props;
     rankingAtual.push({ nome, email, score });
     rankingAtual.sort((a, b) => b.score - a.score);
     localStorage.setItem('ranking', JSON.stringify(rankingAtual));
-  };
+  }
 
   validateScore = (score) => {
     const SCORE_PARAMETER = 3;
