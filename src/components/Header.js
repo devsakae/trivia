@@ -18,7 +18,7 @@ class Header extends Component {
           <p data-testid="header-player-name">{ nome }</p>
         </div>
         <div>
-          <h1>Trivia MG25</h1>
+          <h1 className="logoTrivia">Trivia MG25</h1>
         </div>
         <div>
           <p>Sua pontuação:</p>

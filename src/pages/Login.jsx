@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import { getToken } from '../services/fetchAPI';
 
 class Login extends Component {
@@ -35,44 +34,56 @@ class Login extends Component {
   render() {
     const { name, email, disabledButton } = this.state;
     return (
-      <section className="login-box">
-        <h2>Trivia MG25</h2>
-        <form>
-          <label htmlFor="name">
+      <section className="container-login">
+        <div className="login-menu">
+          <img
+            src={ require("../images/trybe-negativo-preferencial.png") }
+            alt="Trybe Logo here"
+            className="trybelogo"
+          />
+          <h2 className="triviaMg25">TRIVIA</h2>
+          <h2 className="triviaMg25">MG25</h2>
+          <form className="login-box">
             <input
               type="text"
               name="nome"
+              placeholder="Nome do jogador"
               data-testid="input-player-name"
-              placeholder="Digite seu nome"
               value={ name }
               onChange={ this.handleChange }
+              className="input"
             />
-          </label>
-          <input
-            type="email"
-            name="email"
-            data-testid="input-gravatar-email"
-            placeholder="Digite seu e-mail"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ disabledButton }
-            onClick={ this.handleClick }
-          >
-            Play
-          </button>
-          <Link to="/settings">
+            <input
+              type="email"
+              name="email"
+              placeholder="Digite seu e-mail"
+              required=""
+              data-testid="input-gravatar-email"
+              value={ email }
+              onChange={ this.handleChange }
+              className="input"
+            />
             <button
               type="button"
-              data-testid="btn-settings"
+              data-testid="btn-play"
+              disabled={ disabledButton }
+              onClick={ this.handleClick }
+              className="button"
             >
-              Settings
+              Jogar
             </button>
-          </Link>
-        </form>
+            <Link to="/settings">
+              <button
+                type="button"
+                data-testid="btn-settings"
+                className="button"
+              >
+                Configurações
+              </button>
+            </Link>
+          </form>
+        </div>
+        <div className="login-section" />
       </section>
     );
   }

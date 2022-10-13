@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { MD5 } from 'crypto-js';
+import Header from '../components/Header';
 
 class Ranking extends Component {
   state = {
@@ -15,34 +16,46 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     return (
-      <section>
-        <h1
-          data-testid="ranking-title"
-        >
-          Tela de ranking
-        </h1>
-        {
-          ranking.map((item, index) => (
-            <div key={ index }>
-              <h1>{ index + 1 }</h1>
-              <img
-                src={ `https://www.gravatar.com/avatar/${MD5(item.email).toString()}` }
-                alt="profile"
-              />
-              <h4 data-testid={ `player-name-${index}` }>{ item.nome }</h4>
-              <h4 data-testid={ `player-score-${index}` }>{ item.score }</h4>
-            </div>
-          ))
-        }
-        <Link to="/">
-          <button
-            data-testid="btn-go-home"
-            type="button"
+      <>
+        <Header />
+        <section className="ranking">
+          <h1
+            data-testid="ranking-title"
           >
-            Início
-          </button>
-        </Link>
-      </section>
+            Confira o ranking!
+          </h1>
+          {
+            ranking.map((item, index) => (
+              <div key={ index } className="colocado">
+                <h3>
+                  #
+                  { index + 1 }
+                </h3>
+                <img
+                  src={ `https://www.gravatar.com/avatar/${MD5(item.email).toString()}` }
+                  alt="profile"
+                />
+                <p data-testid={ `player-name-${index}` } className="nm">
+                  { (index === 0) && '🏆' }
+                  { (index === 1) && '🥈' }
+                  { (index === 2) && '🥉' }
+                  { ' ' }
+                  { item.nome }
+                </p>
+                <p data-testid={ `player-score-${index}` }>{ item.score }</p>
+              </div>
+            ))
+          }
+          <Link to="/">
+            <button
+              data-testid="btn-go-home"
+              type="button"
+            >
+              Início
+            </button>
+          </Link>
+        </section>
+      </>
     );
   }
 }

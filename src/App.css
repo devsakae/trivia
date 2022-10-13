@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Luckiest+Guy&display=swap');
 
 body {
   box-sizing: border-box;
@@ -11,6 +11,52 @@ body {
 .container-col {
   display: flex;
   flex-direction: column;
+}
+
+.container-login {
+  display: flex;
+  flex-direction: row;
+}
+
+.login-menu {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 50vw;
+}
+
+.trybelogo {
+  margin: 50px auto;
+  width: 350px;
+}
+
+.triviaMg25 {
+  font-family: 'Audiowide', cursive;
+  font-size: 64px;
+  letter-spacing: 6px;
+  margin-top: -40px;
+  text-align: center;
+}
+
+.logoTrivia {
+  padding: 60px;
+  margin: -15px;
+  background-image: url('./images/backlogo.jpg');
+  background-position: center;
+  background-clip: text;
+  color: transparent;
+  font-family: 'Audiowide', cursive;
+  font-size: 64px;
+  letter-spacing: 6px;
+}
+
+.login-section {
+  background-image: url('./images/silvinho.webp');
+  background-position-x: right;
+  background-position-y: bottom;
+  width: 100%;
 }
 
 .neither {
@@ -42,36 +88,6 @@ header {
   justify-content: space-between;
   padding: 15px;
   text-align: center;
-}
-
-.login-box {
-  align-items: center;
-  background-color: #49111c;
-  box-shadow: rgba(0, 0, 0, 0.6) 0 5px 10px;
-  color: #f2f4f3;
-  justify-content: center;
-  margin: 25vh auto;
-  max-width: 40vw;
-  padding: 20px;
-  text-align: center;
-}
-
-.login-box form {
-  align-items: center;
-  display: flex;
-  flex-flow: column wrap;
-  gap: 10px;
-  justify-content: center;
-  padding: 10px;
-}
-
-.login-box input {
-  height: 20px;
-  width: 20vw;
-}
-
-.login-box button {
-  width: 20vw;
 }
 
 .triviaGame {
@@ -119,6 +135,125 @@ header {
   width: 40vw;
 }
 
+.ranking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.colocado {
+  display: flex;
+  flex-direction: row;
+  font-size: larger;
+  align-items: center;
+  justify-content: space-between;
+  width: 50vw;
+  border-bottom: 1px black solid;
+  padding: 20px;
+}
+
+.nm {
+  min-width: 20vw;
+}
+
+.yourResults {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.yourScore {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .contagem {
   font-size: x-large;
 }
+
+.login-box {
+  align-items: center;
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-box button {
+  background-color: #581e52;
+  color: white;
+  border: none;
+  width: 250px;
+}
+
+input {
+  background: transparent;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #515151;
+  font-size: larger;
+  color: white;
+}
+
+input:active, input:valid, input:focus {
+  background: transparent;
+}
+
+/* From uiverse.io by @nikk7007 */
+.button {
+  --color: #00A97F;
+  padding: 0.8em 1.7em;
+  background-color: transparent;
+  border-radius: .3em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .5s;
+  font-weight: 400;
+  font-size: 17px;
+  border: 1px solid;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: var(--color);
+  z-index: 1;
+ }
+ 
+ .button::before, .button::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 1s ease;
+ }
+ 
+ .button::before {
+  top: -1em;
+  left: -1em;
+ }
+ 
+ .button::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+ }
+ 
+ .button:hover::before, .button:hover::after {
+  height: 410px;
+  width: 410px;
+ }
+ 
+ .button:hover {
+  color: rgb(10, 25, 30);
+  font-weight: bolder;
+ }
+ 
+ .button:active {
+  filter: brightness(.8);
+ }
+ 

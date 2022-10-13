@@ -6,12 +6,17 @@ import Header from '../components/Header';
 
 class Feedback extends Component {
   componentDidMount() {
+    const { score } = this.props;
+    if (score > 0) this.gravaRanking();
+  }
+
+  gravaRanking = () => {
     const rankingAtual = JSON.parse(localStorage.getItem('ranking')) || [];
     const { nome, email, score } = this.props;
     rankingAtual.push({ nome, email, score });
     rankingAtual.sort((a, b) => b.score - a.score);
     localStorage.setItem('ranking', JSON.stringify(rankingAtual));
-  }
+  };
 
   validateScore = (score) => {
     const SCORE_PARAMETER = 3;
@@ -29,21 +34,31 @@ class Feedback extends Component {
     const feedback = this.validateScore(assertions);
 
     return (
-      <div>
+      <>
         <Header />
-        <h1 data-testid="feedback-text">{ feedback }</h1>
-        <p data-testid="feedback-total-score">{ score }</p>
-        <p data-testid="feedback-total-question">{ assertions }</p>
-        <Link to="/">
-          <button
-            type="button"
-            data-testid="btn-play-again"
-          >
-            Play Again
+        <section className="yourResults">
+          <div className="yourScore">
+            <div>
+              <h2 data-testid="feedback-total-score">{ score }</h2>
+              <p>pontos</p>
+            </div>
+            <div>
+              <h2 data-testid="feedback-total-question">{ assertions }</h2>
+              <p>acertos</p>
+            </div>
+          </div>
+          <p data-testid="feedback-text">{ feedback }</p>
+          <Link to="/">
+            <button
+              type="button"
+              data-testid="btn-play-again"
+            >
+              Play Again
 
-          </button>
-        </Link>
-      </div>
+            </button>
+          </Link>
+        </section>
+      </>
     );
   }
 }
