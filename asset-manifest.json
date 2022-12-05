@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/trivia/static/css/main.540abc34.css",
+    "main.js": "/trivia/static/js/main.1cb70db6.js",
+    "static/media/silvinho.webp": "/trivia/static/media/silvinho.5b029d75ae51bac81375.webp",
+    "static/media/trybe-negativo-preferencial.png": "/trivia/static/media/trybe-negativo-preferencial.b0724454a8c931b5f45e.png",
+    "static/media/backlogo.jpg": "/trivia/static/media/backlogo.0b51f0370fe4ed26708c.jpg",
+    "index.html": "/trivia/index.html",
+    "main.540abc34.css.map": "/trivia/static/css/main.540abc34.css.map",
+    "main.1cb70db6.js.map": "/trivia/static/js/main.1cb70db6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.540abc34.css",
+    "static/js/main.1cb70db6.js"
+  ]
+}
