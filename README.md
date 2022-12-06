@@ -17,7 +17,6 @@ Rode com <code>npm start</code>
 
 ## Screenshots
 
-![Screenshot](./public/trivia-screenshot1.png)
 ![Screenshot](./public/trivia-screenshot2.png)
 ![Screenshot](./public/trivia-screenshot3.png)
 ![Screenshot](./public/trivia-screenshot4.png)
